@@ -29,22 +29,22 @@ defineSupportCode(({Given, When, Then}) => {
     });
 
     When(/^I register with (.*), (.*), (.*), (.*), (.*), (.*), (.*), (.*), (.*) and (.*)$/, (firstname, lastname, email, university, ismaestria, programa, dobleprogram, program2, acept, password) => {
-        var cajaSignUp = browser.element('.cajaSignUp');
+        var cajaSignUp = $('.cajaSignUp');
 
-        var nameInput = cajaSignUp.element('input[name="nombre"]');
+        var nameInput = cajaSignUp.$('input[name="nombre"]');
         nameInput.click();
         nameInput.keys(firstname);
 
-        var lastNameInput = cajaSignUp.element('input[name="apellido"]');
+        var lastNameInput = cajaSignUp.$('input[name="apellido"]');
         lastNameInput.click();
         lastNameInput.keys(lastname);
 
-        var emailInput = cajaSignUp.element('input[name="correo"]');
+        var emailInput = cajaSignUp.$('input[name="correo"]');
         emailInput.click();
         emailInput.keys(email);
 
         browser.waitForVisible('select[name="idUniversidad"]', 5000);
-        var selectUniversidad =  cajaSignUp.element('select[name="idUniversidad"]');
+        var selectUniversidad =  cajaSignUp.$('select[name="idUniversidad"]');
         selectUniversidad.selectByValue(university);
 
         if(ismaestria =="S"){
@@ -54,11 +54,11 @@ defineSupportCode(({Given, When, Then}) => {
 
         if(university!="inicial"){
             browser.waitForVisible('select[name="idPrograma"]', 8000);
-            var selectPrograma = cajaSignUp.element('select[name="idPrograma"]');
+            var selectPrograma = cajaSignUp.$('select[name="idPrograma"]');
             selectPrograma.selectByValue(programa);
         }
 
-        var passwordInput = cajaSignUp.element('input[name="password"]');
+        var passwordInput = cajaSignUp.$('input[name="password"]');
         passwordInput.click();
         passwordInput.keys(password);
 
@@ -66,18 +66,18 @@ defineSupportCode(({Given, When, Then}) => {
             browser.element('/html/body/div[3]/div[2]/div/div/div/div/div/div[1]/div/form/div/label[2]/input').click();
 
             browser.waitForVisible('select[name="idPrograma2"]', 8000);
-            var selectDoblePrograma = cajaSignUp.element('select[name="idPrograma2"]');
+            var selectDoblePrograma = cajaSignUp.$('select[name="idPrograma2"]');
             selectDoblePrograma.selectByValue(program2);
         }
 
         if(acept == "S"){
-            cajaSignUp.element('input[name="acepta"]').click();
+            cajaSignUp.$('input[name="acepta"]').click();
         }
     });
 
     When('I try to login', ()=>{
-        var cajaLogIn = browser.element('.cajaLogIn');
-        cajaLogIn.element('button=Ingresar').click();
+        var cajaLogIn = $('.cajaLogIn');
+        cajaLogIn.$('button=Ingresar').click();
     });
 
     When('I try to login', () => {
@@ -97,7 +97,7 @@ defineSupportCode(({Given, When, Then}) => {
 
 
     Then(/^I expect fail (.*)$/, (error) => {
-        var cajaSignUp = browser.element('.cajaSignUp');
+        var cajaSignUp = $('.cajaSignUp');
         var nameInput = cajaSignUp.element('input[name="nombre"]');
         var lastNameInput = cajaSignUp.element('input[name="apellido"]');
         var selectUniversidad =  cajaSignUp.element('select[name="idUniversidad"]');

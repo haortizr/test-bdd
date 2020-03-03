@@ -9,9 +9,9 @@ Scenario Outline: Login failed
     Then I expect to see <error>
 
     Examples:
-      | email            | password | error                    |
-      |                  |          | Ingresa una contraseña   |
-      | miso@gmail.com  |    1234   | Upss! El correo y        |
+      | email            | password  | error                    |
+      |                  |           | Ingresa una contraseña   |
+      | miso@gmail.com   |    1234   | Upss! El correo y        |
 
 
 
