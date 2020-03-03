@@ -2,31 +2,28 @@ var {defineSupportCode} = require('cucumber');
 var {expect} = require('chai');
 
 defineSupportCode(({Given, When, Then}) => {
-    Given('I go to losestudiantes home screen', ()=> {
+
+    Given('I go to losestudiantes home screen', () => {
         browser.url('/');
-        if(browser.isVisible('button=Cerrar')){
-            browser.element('button=Cerrar').click();
-        }else{
-            if(browser.isVisible('#cuenta')){
-                browser.element('#cuenta').click();
-                browser.element('.dropdown-menu').click();
-            }
+        if($('button=Cerrar').isDisplayed()) {
+            $('button=Cerrar').click();
         }
     });
 
-    When('I open the login screen', ()=>{
-        browser.waitForVisible('button=Ingresar', 5000);
-        browser.click('button=Ingresar');
+    When('I open the login screen', () => {
+        $('button=Ingresar').waitForExist(5000);
+        $('button=Ingresar').waitForDisplayed(5000);
+        $('button=Ingresar').click();
     });
 
     When(/^I fill with (.*) and (.*)$/ , (email, password)=>{
-        var cajaLogIn = browser.element('.cajaLogIn');
+        var cajaLogIn = $('.cajaLogIn');
 
-        var mailInput = cajaLogIn.element('input[name="correo');
+        var mailInput = cajaLogIn.$('input[name="correo"]');
         mailInput.click();
         mailInput.keys(email);
 
-        var passwordInput= cajaLogIn.element('input[name="password"]');
+        var passwordInput = cajaLogIn.$('input[name="password"]');
         passwordInput.click();
         passwordInput.keys(password);
     });
@@ -83,20 +80,21 @@ defineSupportCode(({Given, When, Then}) => {
         cajaLogIn.element('button=Ingresar').click();
     });
 
-    When('I try to register', ()=>{
-        var cajaLogIn = browser.element('.cajaSignUp');
-        cajaLogIn.element('button=Registrarse').click();
+    When('I try to login', () => {
+        var cajaLogIn = $('.cajaLogIn');
+        cajaLogIn.$('button=Ingresar').click();
     });
 
-    Then('I expect to not be able to login', ()=>{
-        browser.waitForVisible('.aviso.alert.alert-danger', 5000);
+    Then('I expect to not be able to login', () => {
+        $('.aviso.alert.alert-danger').waitForDisplayed(5000);
     });
 
     Then('I expect to see {string}', error => {
-        browser.waitForVisible('.aviso.alert.alert-danger', 5000);
-        var alertText = browser.element('.aviso.alert.alert-danger').getText();
+        $('.aviso.alert.alert-danger').waitForDisplayed(5000);
+        var alertText = browser.$('.aviso.alert.alert-danger').getText();
         expect(alertText).to.include(error);
     });
+
 
     Then(/^I expect fail (.*)$/, (error) => {
         var cajaSignUp = browser.element('.cajaSignUp');
